@@ -1,4 +1,5 @@
 # Cyclistic-Case-Study-
+
 ## Defining the Problem
 
 The core challenge facing the director of marketing and the marketing analytics team is to develop effective marketing strategies that facilitate the conversion of Cyclistic's casual riders into committed annual members. This analysis is guided by three essential questions that will shape the upcoming marketing program:
@@ -101,7 +102,7 @@ To finalize this process, I saved all the updates in an .XLS file and made a cop
 
 To facilitate the analysis, I opted to employ SQL via BigQuery for its collective Google Cloud Storage that makes the transition to manage extensive data volumes easy.
 
-### Data Cleaning
+## Data Cleaning
 
 #### Yearly Data
 
@@ -133,3 +134,131 @@ SELECT * FROM da-project-cyclistic.DA_Cyclistic.2023_05
 UNION ALL
 SELECT * FROM da-project-cyclistic.DA_Cyclistic.2023_07
 );
+```
+
+After ensuring that there are no duplicates to avoid inaccurate analysis and reporting, I proceeded with my analysis.
+
+### Total Rides
+
+I calculated the total trips to get a clear picture of how trips are distributed between different user types (members and casual riders).
+
+```sql
+-- CALCULATE THE TOTAL TRIPS AND WHAT PERCENTAGE EACH USER_TYPE REPRESENTS --
+SELECT 
+    user_type, 
+    COUNT(*) AS Total_trips,
+    COUNT(*) * 100.0 / SUM(COUNT(*)) OVER () AS Trips_Percentage
+FROM 
+    `da-project-cyclistic.DA_Cyclistic.DATA2022_2023` 
+GROUP BY 
+    user_type;
+```
+
+![Results Table](https://static.wixstatic.com/media/a2b0e7_843dc159f96243b593d33f8d3a5e5923~mv2.png/v1/crop/x_0,y_3,w_602,h_92/fill/w_843,h_129,al_c,lg_1,q_85,enc_auto/a2b0e7_843dc159f96243b593d33f8d3a5e5923~mv2.png)
+
+It helped me to identify which user type contributes more to the total number of trips and by how much. The percentage column allowed me to compare the engagement of each user type relative to the total number of trips.
+
+### Average Ride Length 
+
+This query provides the average ride time (in total minutes) for each user type in the specified dataset.
+
+```sql
+-- CALCULATE THE RIDE LENGTH PER DAY FOR CASUAL RIDERS --
+SELECT 
+    user_type,
+    EXTRACT(DAYOFWEEK FROM started_at) AS day_of_week,
+    AVG(Total_minutes) AS avg_ride_length_minutes
+FROM `DA_Cyclistic.DATA2022_2023`
+WHERE user_type ='casual'
+GROUP BY user_type, day_of_week
+ORDER BY user_type, day_of_week;
+```
+
+```sql
+-- CALCULATE THE RIDE LENGTH PER DAY FOR MEMBER RIDERS --
+SELECT 
+    user_type,
+    EXTRACT(DAYOFWEEK FROM started_at) AS day_of_week,
+    AVG(Total_minutes) AS avg_ride_length_minutes
+FROM `DA_Cyclistic.DATA2022_2023`
+WHERE user_type ='member'
+GROUP BY user_type, day_of_week
+ORDER BY user_type, day_of_week;
+```
+
+I calculated the average ride length in minutes per day of the week for each user type. We can see that casual users spend more time cycling than annual members, taking longer rides on days like Saturdays and Sundays.
+
+## Total Rides Per Day Of The Week
+
+I calculated a breakdown of the total number of rides and the percentage of rides for each day of the week in the specified dataset. This analysis is valuable to understand the distribution of rides throughout the week and identifying patterns in rider behavior based on different days.
+
+```sql
+-- CALCULATE THE RIDES PER DAY OF THE WEEK --
+SELECT 
+    EXTRACT(DAYOFWEEK FROM started_at) AS day_of_week,
+    COUNT(*) AS total_rides,
+    COUNT(*) * 100.0 / SUM(COUNT(*)) OVER () AS percentage
+FROM `DA_Cyclistic.DATA2022_2023`
+GROUP BY day_of_week
+ORDER BY day_of_week;
+```
+## Rides Per Season
+
+In summary, this query provides a breakdown of the total number of rides per season in the specified dataset. The results will show the different seasons and the total number of rides for each season. This analysis could be valuable for understanding seasonal patterns and trends in ride usage.
+
+```sql
+-- CALCULATE THE RIDES PER SEASON --
+SELECT
+    CASE
+        WHEN EXTRACT(MONTH FROM started_at) IN (3, 4, 5) THEN 'Spring'
+        WHEN EXTRACT(MONTH FROM started_at) IN (6, 7, 8) THEN 'Summer'
+        WHEN EXTRACT(MONTH FROM started_at) IN (9, 10, 11) THEN 'Fall'
+        ELSE 'Winter'
+    END AS season,
+    user_type,
+    COUNT(*) AS total_rides
+FROM `DA_Cyclistic.DATA2022_2023`
+GROUP BY season, user_type
+ORDER BY user_type, season;
+```
+## Rides Per Time Periods
+
+This query provided a breakdown of the total number of rides per time periods (morning, afternoon, night) for all user types.
+
+```sql
+-- GROUP BY THE TIME PERIODS --
+SELECT
+    CASE
+        WHEN EXTRACT(HOUR FROM started_at) >= 5 AND EXTRACT(HOUR FROM started_at) < 12 THEN 'Morning'
+        WHEN EXTRACT(HOUR FROM started_at) >= 12 AND EXTRACT(HOUR FROM started_at) < 18 THEN 'Afternoon'
+        ELSE 'Night'
+    END AS time_of_day,
+    user_type,
+    COUNT(*) AS total_rides
+FROM `DA_Cyclistic.DATA2022_2023`
+GROUP BY time_of_day, user_type
+ORDER BY user_type, time_of_day;
+```
+The busiest time during the day to get a bike is during the afternoon. We can see that both casual and member users tend to ride during the afternoon, but differ on the morning period where casual users drop significantly.
+
+## Frequently Used Stations
+
+I calculated the most frequent stations based on ride counts in the specified dataset. The results will show the station names and their corresponding ride counts, ordered from the highest ride count to the lowest.
+
+```sql
+-- CALCULATE THE MOST FRECUENT STATIONS --
+SELECT 
+    station_name, 
+    COUNT(*) AS ride_count 
+FROM (
+    SELECT start_station_name_clean AS station_name FROM da-project-cyclistic.DA_Cyclistic.DATA2022_2023
+    UNION ALL
+    SELECT end_station_name_cleaned AS station_name FROM da-project-cyclistic.DA_Cyclistic.DATA2022_2023
+) AS all_stations
+GROUP BY station_name
+ORDER BY ride_count DESC;
+```
+
+This analysis provides insights into the popularity and usage of different stations within the cycling dataset. We can see that the stations close to the harbor are the most popular such as Streeter Dr & Grand Ave and DuSable Lake Shore. An initial hypothesis could be that most users bike during the weekends close to tourist attractions; therefore, we will need to target those areas to convert casual riders using this program as an entertainment to annual members.
+
+
