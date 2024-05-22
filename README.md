@@ -65,3 +65,71 @@ A significant concern revolves around ensuring the data fairly represents all us
 The dataset's importance lies in its potential to reveal how Cyclistic's riders behave. It helps identify trends in trips and rider preferences. Nonetheless, a cautious analysis is essential due to potential flaws and biases that might affect how we interpret the data.
 
 Thorough data verification protocols are established, involving checks for consistency and identification of anomalies. This ensures the dataset's accuracy and reliability.
+
+## Data Cleaning & Manipulation
+
+In this step, we ensured that the data is stored in an appropriate manner and is ready for analysis. To initiate this process, the downloaded zip files are extracted to reveal the contained information. Subsequently, a dedicated folder is created, within this main folder, organization is further enhanced by establishing two distinct subfolders. One subfolder is designated for .CSV files, while the other accommodates .XLS or Sheets files. This division ensures the preservation of the original data sets.
+
+### Microsoft Excel Spreadsheets, Data Manipulation:
+
+For Excel, the process starts by launching the application, opening each file, and opting to "Save As" an Excel Workbook file. These newly saved files find their place within the subfolder dedicated to .XLS files.
+
+1. **Created a column called ride_length:**
+   - Calculated the length of each ride by subtracting the ended_at column from the started_at column.
+   - Formula: `= D2-C2` (when `ended_at = D2` and `started_at = C2`)
+   - Formatted as `TIME`: Format → Cells → Time → `HH:MM:SS`
+
+2. **Created a column called weekday:**
+   - Obtained the weekday that each ride started using the WEEKDAY command.
+   - Formula: `= WEEKDAY(C2,1))`
+   - Formatted as an `INTEGER`: Format → Cells → Number (When `1 = Sunday`)
+
+After this step, I utilized PivotTables to further analyze the data.
+
+1. **Created a PivotTable:**
+   - Insert → PivotTable
+   - Selected a table or range
+   - Chose where to place the PivotTable
+
+I repeated this process for each .XLS file to create a first insight into the data behavior such as the total number of rides per month, total number of rides per member or casual rider, average ride length, and identify the most prominent days of the week for Cyclistic's riders.
+
+To finalize this process, I saved all the updates in an .XLS file and made a copy on a .CSV file.
+
+## Exploratory Data Analysis
+
+### BigQuery
+
+To facilitate the analysis, I opted to employ SQL via BigQuery for its collective Google Cloud Storage that makes the transition to manage extensive data volumes easy.
+
+### Data Cleaning
+
+#### Yearly Data
+
+To consolidate the data for easier cleaning and manipulation, I created a new table within the same dataset by combining all the monthly files into a new table called `yearly_data`.
+
+```sql
+-- COMBINING ALL TABLES
+CREATE TABLE da-project-cyclistic.DA_Cyclistic.yearly_data AS
+SELECT * FROM (
+SELECT * FROM da-project-cyclistic.DA_Cyclistic.2022_08
+UNION ALL
+SELECT * FROM da-project-cyclistic.DA_Cyclistic.2022_09
+UNION ALL
+SELECT * FROM da-project-cyclistic.DA_Cyclistic.2022_10
+UNION ALL
+SELECT * FROM da-project-cyclistic.DA_Cyclistic.2022_11
+UNION ALL
+SELECT * FROM da-project-cyclistic.DA_Cyclistic.2022_12
+UNION ALL
+SELECT * FROM da-project-cyclistic.DA_Cyclistic.2023_01
+UNION ALL
+SELECT * FROM da-project-cyclistic.DA_Cyclistic.2023_02
+UNION ALL
+SELECT * FROM da-project-cyclistic.DA_Cyclistic.2023_03
+UNION ALL
+SELECT * FROM da-project-cyclistic.DA_Cyclistic.2023_04
+UNION ALL
+SELECT * FROM da-project-cyclistic.DA_Cyclistic.2023_05
+UNION ALL
+SELECT * FROM da-project-cyclistic.DA_Cyclistic.2023_07
+);
