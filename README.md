@@ -28,8 +28,8 @@ The data for this analysis is Cyclistic's historical trip data, sourced from the
 There are 12 .CSV files and the dataset includes crucial details about:
 - Bike trips data, such as their duration, starting and ending stations, and whether the rider is a member or casual user.
 
-```sql
 **File Names**:
+```sql
 1. da-project-cyclistic.DA_Cyclistic.2022_08
 2. da-project-cyclistic.DA_Cyclistic.2022_09
 3. da-project-cyclistic.DA_Cyclistic.2022_10
@@ -42,9 +42,10 @@ There are 12 .CSV files and the dataset includes crucial details about:
 10. da-project-cyclistic.DA_Cyclistic.2023_05
 11. da-project-cyclistic.DA_Cyclistic.2023_06
 12. da-project-cyclistic.DA_Cyclistic.2023_07
+```
 
-```sql
 **Columns**:
+```sql
 - ride_id
 - rideable_type
 - started_at
@@ -58,7 +59,7 @@ There are 12 .CSV files and the dataset includes crucial details about:
 - end_lat
 - end_lng
 - member_casual
-'''
+```
 A significant concern revolves around ensuring the data fairly represents all user groups and is comprehensive. Our evaluation aligns with the ROCCC principle (Reliability, Originality, Comprehensiveness, Currentness, Context) to validate the data's credibility.
 
 The dataset's importance lies in its potential to reveal how Cyclistic's riders behave. It helps identify trends in trips and rider preferences. Nonetheless, a cautious analysis is essential due to potential flaws and biases that might affect how we interpret the data.
