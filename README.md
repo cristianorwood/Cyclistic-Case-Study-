@@ -261,4 +261,34 @@ ORDER BY ride_count DESC;
 
 This analysis provides insights into the popularity and usage of different stations within the cycling dataset. We can see that the stations close to the harbor are the most popular such as Streeter Dr & Grand Ave and DuSable Lake Shore. An initial hypothesis could be that most users bike during the weekends close to tourist attractions; therefore, we will need to target those areas to convert casual riders using this program as an entertainment to annual members.
 
+## Conclusion
 
+In this section, we analyze the distinctive ways in which annual members and casual riders utilize Cyclistic bikes, focusing on the differential usage patterns. The analysis is presented in a reader-friendly, humanized format, highlighting key insights and recommendations.
+
+### Seasonal Trends: Spring - Summer as Peak Seasons
+
+During the peak seasons of spring and summer, Cyclistic can strategically amplify its marketing efforts to establish a strong foundation of committed annual members. Two key strategies are proposed:
+
+- **Introduce limited-time seasonal membership offers tailored to the peak seasons and provide exclusive discounts or extended membership benefits for users who commit during these periods.** This approach incentivizes potential customers to sign up for annual memberships during the peak cycling seasons.
+
+- **Distribute an educational newsletter to emphasize the joy of cycling in pleasant weather and showcase how being an annual member guarantees access to enjoyable rides anytime.** This initiative aims to educate and inspire potential members about the advantages of annual memberships, particularly during the peak cycling months.
+
+### Mobility Motives: Commuting vs. Entertainment
+
+The data reveals that a significant portion of annual members use Cyclistic bikes for commuting purposes, while casual users tend to ride for entertainment purposes. This distinction presents a valuable opportunity to cater to their distinct needs through targeted marketing strategies:
+
+- **Develop marketing campaigns that position Cyclistic as the preferred mobility solution for event attendees.** Highlight the convenience of bike-sharing during crowded events, reducing traffic congestion and offering a unique urban experience. This strategy targets casual users who ride for entertainment purposes.
+
+- **Introduce tailored incentives, such as discounted morning rides or promotional campaigns, to persuade casual users to consider biking as a viable commuting option.** This approach aims to convert casual users into potential annual members by highlighting the benefits of bike commuting.
+
+### Localized Outreach
+
+To further enhance Cyclistic's visibility and appeal, consider the following localized outreach strategies:
+
+- **Strategically position Cyclistic stations near popular event venues or tourist attractions to capture the attention of potential casual users.**
+
+- **Utilize geo-targeted advertisements to raise awareness among event-goers and tourists.** Consider collaborating with event organizers to offer promotional codes or incentives to attendees, encouraging them to become annual members.
+
+- **Develop a feature within Cyclistic's app that suggests scenic routes to popular tourist attractions.** Emphasize the enjoyable experience of cycling to entertainment venues while saving on parking fees and avoiding traffic congestion. This strategy caters to the needs of casual users who ride for entertainment purposes.
+
+By implementing these targeted strategies, Cyclistic can effectively address the distinct needs of annual members and casual riders, leveraging their respective usage patterns to drive membership growth and customer loyalty.
