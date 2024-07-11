@@ -154,8 +154,6 @@ GROUP BY
     user_type;
 ```
 
-![Results Table](https://static.wixstatic.com/media/a2b0e7_843dc159f96243b593d33f8d3a5e5923~mv2.png/v1/crop/x_0,y_3,w_602,h_92/fill/w_843,h_129,al_c,lg_1,q_85,enc_auto/a2b0e7_843dc159f96243b593d33f8d3a5e5923~mv2.png)
-
 It helped me to identify which user type contributes more to the total number of trips and by how much. The percentage column allowed me to compare the engagement of each user type relative to the total number of trips.
 
 ### Average Ride Length 
