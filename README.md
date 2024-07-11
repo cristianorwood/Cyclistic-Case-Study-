@@ -1,4 +1,4 @@
-# Cyclistic-Case-Study-
+# Cyclistic-Case-Study
 
 ## Defining the Problem
 
