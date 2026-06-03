@@ -132,6 +132,8 @@ SELECT * FROM da-project-cyclistic.DA_Cyclistic.2023_04
 UNION ALL
 SELECT * FROM da-project-cyclistic.DA_Cyclistic.2023_05
 UNION ALL
+SELECT * FROM da-project-cyclistic.DA_Cyclistic.2023_06
+UNION ALL
 SELECT * FROM da-project-cyclistic.DA_Cyclistic.2023_07
 );
 ```
@@ -244,12 +246,12 @@ The busiest time during the day to get a bike is during the afternoon. We can se
 I calculated the most frequent stations based on ride counts in the specified dataset. The results will show the station names and their corresponding ride counts, ordered from the highest ride count to the lowest.
 
 ```sql
--- CALCULATE THE MOST FRECUENT STATIONS --
+-- CALCULATE THE MOST FREQUENT STATIONS --
 SELECT 
     station_name, 
     COUNT(*) AS ride_count 
 FROM (
-    SELECT start_station_name_clean AS station_name FROM da-project-cyclistic.DA_Cyclistic.DATA2022_2023
+    SELECT start_station_name_cleaned AS station_name FROM da-project-cyclistic.DA_Cyclistic.DATA2022_2023
     UNION ALL
     SELECT end_station_name_cleaned AS station_name FROM da-project-cyclistic.DA_Cyclistic.DATA2022_2023
 ) AS all_stations
@@ -257,7 +259,7 @@ GROUP BY station_name
 ORDER BY ride_count DESC;
 ```
 
-This analysis provides insights into the popularity and usage of different stations within the cycling dataset. We can see that the stations close to the harbor are the most popular such as Streeter Dr & Grand Ave and DuSable Lake Shore. An initial hypothesis could be that most users bike during the weekends close to tourist attractions; therefore, we will need to target those areas to convert casual riders using this program as an entertainment to annual members.
+This analysis provides insights into the popularity and usage of different stations within the cycling dataset. We can see that the stations close to the harbor are the most popular such as Streeter Dr & Grand Ave and DuSable Lake Shore. An initial hypothesis could be that most users bike during the weekends close to tourist attractions; therefore, we will need to target those areas to convert casual riders for entertainment into annual member.
 
 ## Conclusion
 
